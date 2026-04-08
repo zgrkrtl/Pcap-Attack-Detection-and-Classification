@@ -1,2 +1,6 @@
-# pcap-attack-detection-and-classification
-End-to-end pipeline for generating, capturing, extracting and classifying network attack traffic using self-built pcap datasets and PyTorch.
+# pcap-capture-extract-classify
+
+An end-to-end network attack classification pipeline built from scratch.
+Unlike projects that rely on pre-built datasets, this project generates its own
+labeled traffic in a controlled VM environment, extracts features from raw pcap
+files, and trains a deep learning model to classify attack types.
