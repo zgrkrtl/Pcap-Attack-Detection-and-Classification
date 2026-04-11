@@ -25,7 +25,9 @@ def extract_features(pcap_path, label):
                 'is_ack': 1 if 'A' in pkt['TCP'].flags else 0 ,
                 'is_fin': 1 if 'F' in pkt['TCP'].flags else 0 ,
                 'is_rst': 1 if 'R' in pkt['TCP'].flags else 0 ,
-                'label': label
+                'label': label,
+                'payload_size': len(pkt['TCP'].payload),
+                'ttl': pkt['IP'].ttl
             }
             records.append(record)
 
@@ -47,4 +49,12 @@ for pcap_path, label in pcap_dict.items():
     dfs.append(df)
 
 dataset = pd.concat(dfs, ignore_index=True)
-print(dataset.groupby('label')[['is_syn','is_ack','is_fin','is_rst']].sum())
+
+import os
+os.makedirs('dataset', exist_ok=True)
+
+dataset.to_csv('dataset/dataset2.csv', index=False)
+
+print(dataset.shape)
+print(dataset.head(3))
+print(dataset.isnull().sum())
